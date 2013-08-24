@@ -1,7 +1,58 @@
-@(message: String)
+@(title: String)
 
-@main("Don't feed the meter!") {
-    
-    
-    
-}
+<!DOCTYPE html>
+<html>
+  <head>
+  		<title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-responsive.min.css")">
+        <link rel="shortcut icon" type="image/png" href="icon-map-marker">
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map-canvas { height: 50%; width: 50% }
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEenVI_VGXG6X2G8M_WgOndyFnGHfI3dU&sensor=false">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(46.391598, -63.791031),
+          zoom: 17,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+//        var marker = new google.maps.Marker({
+//            position: new google.maps.LatLng(46.391598, -63.791031),
+//            map: map
+//        });
+        var lineCoordinates = [
+                               new google.maps.LatLng(46.391598, -63.791031), // Tail
+                               new google.maps.LatLng(46.3916, -63.7905) // Head
+                             ];
+
+        var lineSymbol = {
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+        };
+
+        var line = new google.maps.Polyline({
+          path: lineCoordinates,
+          icons: [{
+            icon: lineSymbol,
+            offset: '100%'
+          }],
+          map: map
+        });
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+  	<p>Current location of reported Meter Maids:</p>
+    <div id="map-canvas"/>
+  </body>
+</html>
