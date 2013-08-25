@@ -32,8 +32,11 @@ public class Application extends Controller {
     	 * Handle form
     	 */
     	// map form to instance
+    	Form<MeterMaid> filledForm = Form.form(MeterMaid.class).bindFromRequest();
+    	MeterMaid maid = filledForm.get();
     	
     	// handle new information
+//    	MeterMaid.acceptReport(maid);
     	
     	// render the splash page again    	
     	return ok(index.render(byline, maidForm, parkingForm));
@@ -53,9 +56,11 @@ public class Application extends Controller {
     	 * Handle form
     	 */
     	// map form to instance
+    	Form<ParkingLocation> filledForm = Form.form(ParkingLocation.class).bindFromRequest();
+    	ParkingLocation location = filledForm.get();
     	
     	// handle new information
-    	
+//    	ParkingLocation.logNew(location);
     	
     	// render the splash page again
     	return ok(index.render(byline, maidForm, parkingForm));

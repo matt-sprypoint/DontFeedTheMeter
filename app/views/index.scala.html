@@ -21,6 +21,7 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEenVI_VGXG6X2G8M_WgOndyFnGHfI3dU&sensor=false">
     </script>
     <script type="text/javascript">
+    
       function initialize() {
         var mapOptions = {
           center: new google.maps.LatLng(46.391598, -63.791031),
@@ -28,10 +29,10 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-        var marker = new google.maps.Marker({
-           position: new google.maps.LatLng(46.391598, -63.791031),
-            map: map
-        });
+        //var marker = new google.maps.Marker({
+        //   position: new google.maps.LatLng(46.391598, -63.791031),
+        //    map: map
+        //});
         var lineCoordinates = [
                                new google.maps.LatLng(46.391598, -63.791031), // Tail
                                new google.maps.LatLng(46.3916, -63.7905) // Head
@@ -49,7 +50,20 @@
           }],
           map: map
         });
+        
+	    google.maps.event.addListener(map, 'click', function(e){addParking(e.latLng, map)});
+	    
       }
+      
+      function addParking(position, map){
+    	  var marker = new google.maps.Marker({
+              position: position,
+              map: map
+		  });
+		  
+          map.panTo(position);
+      }
+      
       google.maps.event.addDomListener(window, 'load', initialize);
 		</script>
 	</head>
